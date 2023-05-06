@@ -5,15 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="20dp"
-    tools:context=".MainActivity">
+    tools:context=".AllUsersActivity">
 
-    <Button
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SEARCH ALL"
-        android:id="@+id/searchAllButton"/>
-
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
