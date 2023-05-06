@@ -8,8 +8,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.databind.ObjectMapper
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
 import java.io.IOException
 import kotlin.concurrent.thread
 
@@ -51,38 +50,50 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         this.adapter = ArrayAdapter<Person>(this,
             R.layout.item, R.id.textViewInsideList, mutableListOf<Person>())
         lv.adapter = adapter
-
     }
 
     override fun onClick(view: View) {
         val client = OkHttpClient()
 
         thread {
-            val json = run(client)
+            run(client) { json ->
+                if(json != null) {
+                    val mp = ObjectMapper()
+                    val myObject : PersonJsonObject =
+                        mp.readValue(json, PersonJsonObject::class.java)
+                    val persons : MutableList<Person>? = myObject.users
 
-            if(json != null) {
-                val mp = ObjectMapper()
-                val myObject : PersonJsonObject =
-                    mp.readValue(json, PersonJsonObject::class.java)
-                val persons : MutableList<Person>? = myObject.users
-
-                runOnUiThread() {
-                    persons?.forEach { adapter.add(it) }
+                    runOnUiThread() {
+                        persons?.forEach { adapter.add(it) }
+                    }
                 }
             }
         }
     }
 
-    private fun run(client: OkHttpClient) : String? {
+    private fun run(client: OkHttpClient, callback: (String?) -> Unit) {
         val request = Request.Builder()
             .url("https://dummyjson.com/users")
             .build()
 
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) throw IOException("Error: $response")
+        client.newCall(request).enqueue(object: Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
 
-            return response.body!!.string()
-        }
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if(!response.isSuccessful) throw IOException("Error: $response")
+
+                    for ((firstName, lastName) in response.headers) {
+                        println("$firstName $lastName")
+                    }
+
+                    callback(response.body!!.string())
+                }
+            }
+        })
+
     }
 }
 
