@@ -16,23 +16,34 @@ import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var searchAllButton : Button
+    private lateinit var addUserButton : Button
+    private lateinit var lv : ListView
+    private lateinit var adapter: ArrayAdapter<Person>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         title = "Kaisa's Android Project"
 
-        this.searchAllButton = findViewById(R.id.searchAllButton)
-        searchAllButton.setOnClickListener {
+        this.lv = findViewById(R.id.listView)
+        this.adapter = ArrayAdapter<Person>(this,
+            R.layout.item, R.id.textViewInsideList, mutableListOf<Person>())
+        lv.adapter = adapter
+
+        this.addUserButton = findViewById(R.id.addUserButton)
+        addUserButton.setOnClickListener {
             val myIntent = Intent(this, AllUsersActivity::class.java)
             startActivity(myIntent)
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        parseJson(this, adapter)
+    }
+
     override fun onClick(view: View) {
 
     }
-
 }
 
