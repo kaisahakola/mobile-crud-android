@@ -14,6 +14,9 @@ import java.io.IOException
 import java.io.Serializable
 import kotlin.concurrent.thread
 
+/**
+ * This is the activity for adding users.
+ */
 class AllUsersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

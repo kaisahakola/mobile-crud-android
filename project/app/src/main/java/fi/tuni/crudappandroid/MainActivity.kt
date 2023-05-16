@@ -14,12 +14,20 @@ import java.io.IOException
 import java.io.Serializable
 import kotlin.concurrent.thread
 
+/**
+ * This is the main activity of the Android CRUD project.
+ */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var addUserButton : Button
     private lateinit var lv : ListView
     private lateinit var adapter: ArrayAdapter<Person>
 
+    /**
+     * Called when the activity is first created.
+     *
+     * @param savedInstanceState The saved instance state bundle.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,11 +45,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * Called when the activity is resumed.
+     */
     override fun onResume() {
         super.onResume()
         parseJson(this, adapter)
     }
 
+    /**
+     * Handles the click event of the addUserButton button.
+     */
     override fun onClick(view: View) {
 
     }
