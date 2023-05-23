@@ -10,6 +10,15 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 
+/**
+ * A Function that handles adding new users.
+ *
+ * This function makes a POST request to the server
+ * with given user information.
+ *
+ * @param firstName The first name of the new user.
+ * @param lastName The last name of the new user.
+ */
 fun addUser(firstName: String, lastName: String) {
     val client = OkHttpClient()
     val newUser = Person(firstName, lastName)

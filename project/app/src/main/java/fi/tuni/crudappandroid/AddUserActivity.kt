@@ -21,6 +21,12 @@ class AddUserActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var lastNameInput: EditText
     private lateinit var addButton: Button
 
+    /**
+     * Override method called when the activity is created.
+     * Initializes the activity and sets up the user interface.
+     *
+     * @param savedInstanceState The saved instance state bundle.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_user)
@@ -38,6 +44,13 @@ class AddUserActivity : AppCompatActivity(), View.OnClickListener {
         addButton.setOnClickListener(this)
     }
 
+    /**
+     * Handles the click event of the clicked view.
+     * Retrieves first and last names from the inputs and
+     * calls the addUser() function inside a separate thread.
+     *
+     * @param p0 The view that was clicked (can be null).
+     */
     override fun onClick(p0: View?) {
         val firstNameString : String = firstNameInput.text.toString()
         val lastNameString : String = lastNameInput.text.toString()
@@ -48,6 +61,7 @@ class AddUserActivity : AppCompatActivity(), View.OnClickListener {
 
         Toast.makeText(this, "New user added", Toast.LENGTH_SHORT).show();
 
+        // Clearing the input fields.
         firstNameInput.setText("")
         lastNameInput.setText("")
     }
