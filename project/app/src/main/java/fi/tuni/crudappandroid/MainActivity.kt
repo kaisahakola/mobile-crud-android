@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var adapter: ArrayAdapter<Person>
 
     /**
-     * Called when the activity is first created.
+     * Override method called when the activity is created.
+     * Initializes the activity and sets up the user interface.
      *
      * @param savedInstanceState The saved instance state bundle.
      */
@@ -40,22 +41,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         this.addUserButton = findViewById(R.id.addUserButton)
         addUserButton.setOnClickListener {
-            val myIntent = Intent(this, AllUsersActivity::class.java)
+            val myIntent = Intent(this, AddUserActivity::class.java)
             startActivity(myIntent)
         }
     }
 
     /**
-     * Called when the activity is resumed.
+     * Override method called when the activity is resumed.
+     *
+     * This function calls the parseJson() function which makes
+     * the connection to the server to parse and display user data.
      */
     override fun onResume() {
         super.onResume()
         parseJson(this, adapter)
     }
 
-    /**
-     * Handles the click event of the addUserButton button.
-     */
     override fun onClick(view: View) {
 
     }
