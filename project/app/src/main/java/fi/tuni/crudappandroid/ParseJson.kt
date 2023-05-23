@@ -6,7 +6,10 @@ import okhttp3.OkHttpClient
 import kotlin.concurrent.thread
 
 /**
- * This function implements the parsing of the json data.
+ * This function implements the parsing of the JSON data.
+ *
+ * The function calls the fetchData() function which returns
+ * JSON data, which is then handled with ObjectMapper.
  *
  * @param activity The activity where the runOnUiThread is ran.
  * @param adapter The ArrayAdapter where the Person json objects are sent.
