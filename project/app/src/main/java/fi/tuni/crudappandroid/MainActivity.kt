@@ -40,10 +40,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         lv.adapter = adapter
 
         this.addUserButton = findViewById(R.id.addUserButton)
-        addUserButton.setOnClickListener {
-            val myIntent = Intent(this, AddUserActivity::class.java)
-            startActivity(myIntent)
-        }
+        addUserButton.setOnClickListener(this)
     }
 
     /**
@@ -57,8 +54,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         parseJson(this, adapter)
     }
 
+    /**
+     * Override method that handles the click event, when a specific view is clicked.
+     * Starts the AddUserActivity by creating and starting a new Intent.
+     *
+     * @param view The view that was clicked.
+     */
     override fun onClick(view: View) {
-
+        val myIntent = Intent(this, AddUserActivity::class.java)
+        startActivity(myIntent)
     }
 }
 
