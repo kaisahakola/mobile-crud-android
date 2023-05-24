@@ -62,6 +62,7 @@ class AddUserActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.LENGTH_LONG
             ).show()
             println("New user not added. Length too short.")
+
         } else {
             // If lengths are good, addUser() gets invoked and
             // a new user is added.
@@ -73,9 +74,9 @@ class AddUserActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
+            // Clearing the input fields.
+            firstNameInput.setText("")
+            lastNameInput.setText("")
         }
-        // Clearing the input fields.
-        firstNameInput.setText("")
-        lastNameInput.setText("")
     }
 }
