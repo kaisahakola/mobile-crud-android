@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.concurrent.thread
 
-
 /**
  * This is the activity for adding users.
  */
@@ -55,12 +54,26 @@ class AddUserActivity : AppCompatActivity(), View.OnClickListener {
         val firstNameString : String = firstNameInput.text.toString()
         val lastNameString : String = lastNameInput.text.toString()
 
-        thread {
-            addUser(firstNameString, lastNameString)
+        // Check if user given inputs are too short.
+        if (firstNameString.length < 2 || lastNameString.length < 2) {
+            Toast.makeText(
+                this,
+                "Name length must be at least two characters.",
+                Toast.LENGTH_LONG
+            ).show()
+            println("New user not added. Length too short.")
+        } else {
+            // If lengths are good, addUser() gets invoked and
+            // a new user is added.
+            thread {
+                addUser(firstNameString, lastNameString)
+                runOnUiThread {
+                    Toast.makeText(
+                        this, "New user added", Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
-
-        Toast.makeText(this, "New user added", Toast.LENGTH_SHORT).show();
-
         // Clearing the input fields.
         firstNameInput.setText("")
         lastNameInput.setText("")
